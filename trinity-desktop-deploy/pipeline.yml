@@ -25,7 +25,9 @@ steps:
       - "./bugsnag.sh && npm run build && node bugsnag.js"
       - "./node_modules/.bin/electron-builder --linux --x64 --publish=never"
       - "cd out"
-      - "echo $$GPG_CONTACT_IOTA_ORG_PASSPHRASE | gpg --pinentry-mode loopback --batch --passphrase-fd 0 --armor --detach-sign --default-key contact@iota.org trinity-desktop*.AppImage"
+      - "./trinity-desktop*.AppImage --appimage-extract"
+      - "/app/appimagetool-x86_64.AppImage ./squashfs-root --sign"
+      #- "echo $$GPG_CONTACT_IOTA_ORG_PASSPHRASE | gpg --pinentry-mode loopback --batch --passphrase-fd 0 --armor --detach-sign --default-key contact@iota.org trinity-desktop*.AppImage"
       - "for i in `ls trinity-desktop*` ; do sha256sum $$i | awk {'print $$1'} > $$i.sha256 ; done"
     plugins:
        https://github.com/iotaledger/docker-buildkite-plugin#release-v1.4.0:
