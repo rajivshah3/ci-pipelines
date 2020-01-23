@@ -21,12 +21,13 @@ echo "steps:"
 
 echo "  - name: \"[Sync] Downloading and extracting binary\"
     command:
+      - apt update && apt install wget -y
       - wget --quiet https://storage.googleapis.com/kubernetes-release/release/v1.14.1/bin/linux/amd64/kubectl -O /cache/kubectl && chmod +x /cache/kubectl
       - export PATH=\$PATH:/cache
       - bash Nightly-Tests/Sync-Tests/createCluster.sh
     plugins:
       https://github.com/iotaledger/docker-buildkite-plugin#release-v3.2.0:
-        image: \"debian\"
+        image: \"debian:stable\"
         always-pull: false
         mount-buildkite-agent: false
         volumes:
