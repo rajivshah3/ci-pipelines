@@ -21,7 +21,7 @@ echo "steps:"
 
 echo "  - name: \"[Sync] Downloading and extracting binary\"
     command:
-      - apt update && apt install wget git python3 python3-virtualenv uuid netcat -y
+      - apt update && apt install wget git uuid netcat -y
       - wget --quiet https://storage.googleapis.com/kubernetes-release/release/v1.14.1/bin/linux/amd64/kubectl -O /cache/kubectl && chmod +x /cache/kubectl
       - export PATH=\$PATH:/cache
       - export KUBECONFIG='/conf/kube/kube.config'
