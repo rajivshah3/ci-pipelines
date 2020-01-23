@@ -25,7 +25,6 @@ echo "  - name: \"[Sync] Downloading and extracting binary\"
       - wget --quiet https://storage.googleapis.com/kubernetes-release/release/v1.14.1/bin/linux/amd64/kubectl -O /cache/kubectl && chmod +x /cache/kubectl
       - export PATH=\$PATH:/cache
       - export KUBECONFIG='/conf/kube/kube.config'
-      - kubectl config view
       - cd Nightly-Tests/Sync-Tests
       - bash createCluster.sh iotacafe/iri
     plugins:
