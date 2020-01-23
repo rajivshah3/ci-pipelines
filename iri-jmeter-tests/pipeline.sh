@@ -21,9 +21,10 @@ echo "steps:"
 
 echo "  - name: \"[Sync] Downloading and extracting binary\"
     command:
-      - apt update && apt install wget -y
+      - apt update && apt install wget git python3 python3-virtualenv -y
       - wget --quiet https://storage.googleapis.com/kubernetes-release/release/v1.14.1/bin/linux/amd64/kubectl -O /cache/kubectl && chmod +x /cache/kubectl
       - export PATH=\$PATH:/cache
+      - kubectl config view
       - bash Nightly-Tests/Sync-Tests/createCluster.sh iotacafe/iri
     plugins:
       https://github.com/iotaledger/docker-buildkite-plugin#release-v3.2.0:
