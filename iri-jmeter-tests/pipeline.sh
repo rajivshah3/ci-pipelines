@@ -26,7 +26,8 @@ echo "  - name: \"[Sync] Downloading and extracting binary\"
       - export PATH=\$PATH:/cache
       - export KUBECONFIG='/conf/kube/kube.config'
       - kubectl config view
-      - bash Nightly-Tests/Sync-Tests/createCluster.sh iotacafe/iri
+      - cd Nightly-Tests/Sync-Tests
+      - bash createCluster.sh iotacafe/iri
     plugins:
       https://github.com/iotaledger/docker-buildkite-plugin#release-v3.2.0:
         image: \"debian:stable\"
