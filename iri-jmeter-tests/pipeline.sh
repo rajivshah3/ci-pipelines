@@ -38,7 +38,6 @@ echo "  - name: \"[Sync] Downloading and extracting binary\"
           - /conf:/conf:ro
     env:
       BUILDKITE_AGENT_NAME: \"$BUILDKITE_AGENT_NAME\"
-      KUBECONFIG: \"/conf/kube/kube.config\"
     agents:
       queue: ops"
 
