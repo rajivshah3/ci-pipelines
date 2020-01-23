@@ -39,6 +39,8 @@ echo "  - name: \"[Sync] Downloading and extracting binary\"
     agents:
       queue: ops"
 
+wait
+
 echo "  - name: \"[IRI] Clearing cache\"
     command:
       - rm -rf /cache/*
