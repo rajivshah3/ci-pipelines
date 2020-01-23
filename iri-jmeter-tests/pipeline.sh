@@ -19,6 +19,25 @@ block() {
 
 echo "steps:"
 
+echo "  - name: \"[Sync] Downloading and extracting binary\"
+    command:
+      - wget --quiet https://storage.googleapis.com/kubernetes-release/release/v1.14.1/bin/linux/amd64/kubectl -O /cache/kubectl && chmod +x /cache/kubectl
+      - export PATH=\$PATH:/cache
+      - bash Nightly-Tests/Sync-Tests/createCluster.sh
+    plugins:
+      https://github.com/iotaledger/docker-buildkite-plugin#release-v3.2.0:
+        image: \"debian\"
+        always-pull: false
+        mount-buildkite-agent: false
+        volumes:
+          - /cache-iri-jmeter-tests-$BUILDKITE_BUILD_ID:/cache
+          - /conf:/conf:ro
+    env:
+      BUILDKITE_AGENT_NAME: \"$BUILDKITE_AGENT_NAME\"
+      KUBECONFIG: \"/conf/kube/kube.config\"
+    agents:
+      queue: ops"
+
 echo "  - name: \"[IRI] Clearing cache\"
     command:
       - rm -rf /cache/*
