@@ -30,7 +30,7 @@ echo "  - name: \"[Sync] Let's see how fast a node catches up\"
       - bash createCluster.sh iotacafe/iri-dev
       - cp -arv SyncOutput/* /cache/Sync-Tests
     artifact_paths:
-      - \"/cache-iri-sync-tests-$BUILDKITE_BUILD_ID/Sync-Tests/**/*.log\"
+      - \"./SyncOutput/*/*\"
     plugins:
       https://github.com/iotaledger/docker-buildkite-plugin#release-v3.2.0:
         image: \"debian:stable\"
