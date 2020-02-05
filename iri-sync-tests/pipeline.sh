@@ -29,8 +29,6 @@ echo "  - name: \"[Sync] Let's see how fast a node catches up\"
       - mkdir /cache/Sync-Tests
       - bash createCluster.sh iotacafe/iri-dev
       - cp -arv SyncOutput/* /cache/Sync-Tests
-    artifact_paths:
-      - \"./SyncOutput/*/*\"
     plugins:
       https://github.com/iotaledger/docker-buildkite-plugin#release-v3.2.0:
         image: \"debian:stable\"
@@ -39,6 +37,22 @@ echo "  - name: \"[Sync] Let's see how fast a node catches up\"
         volumes:
           - /cache-iri-sync-tests-$BUILDKITE_BUILD_ID:/cache
           - /conf:/conf:ro
+    env:
+      BUILDKITE_AGENT_NAME: \"$BUILDKITE_AGENT_NAME\"
+    agents:
+      queue: ops"
+
+echo "  - name: \"[Sync] Upload results\"
+    command:
+      - apt update && apt install wget git uuid-runtime netcat -y
+      - buildkite upload /cache/Sync-Tests/*/*
+    plugins:
+      https://github.com/iotaledger/docker-buildkite-plugin#release-v3.2.0:
+        image: \"debian:stable\"
+        always-pull: false
+        mount-buildkite-agent: true
+        volumes:
+          - /cache-iri-sync-tests-$BUILDKITE_BUILD_ID:/cache
     env:
       BUILDKITE_AGENT_NAME: \"$BUILDKITE_AGENT_NAME\"
     agents:
